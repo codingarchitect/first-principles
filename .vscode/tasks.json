@@ -1,0 +1,45 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "npm",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "install",
+            "args": ["install"]
+        },
+        {
+            "taskName": "update",
+            "args": ["update"]
+        },
+        {
+            "taskName": "test",
+            "args": ["run", "test"]
+        },
+        {
+            "taskName": "start",
+            "args": ["start"],
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "custom",
+                "fileLocation": "relative",
+                "pattern": {
+                    "regexp": "^ERROR\\s+$",
+                    "file": 1,
+                    "location": 2,
+                    "severity": 3,
+                    "code": 4,
+                    "message": 5
+                },
+                "watching": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^webpack: Compiling\\.\\.\\.$",
+                    "endsPattern": "^webpack: Compiled successfully\\.$"
+                }
+            }
+        }
+    ]
+}
