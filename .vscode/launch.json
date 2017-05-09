@@ -11,11 +11,11 @@
       "webRoot": "${workspaceRoot}",
       "userDataDir": "${workspaceRoot}/out/chrome",
       "runtimeArgs": [
-           "--user-data-dir",
-           "--remote-debugging-port=9222"
+        "--user-data-dir",
+        "--remote-debugging-port=9222"
       ],
       "sourceMapPathOverrides": {
-        "webpack:///C:*":"C:/*"
+        "webpack:///C:*": "C:/*"
         // "webpack:////absolute/path/to/workspaceRoot/*": "${webRoot}/*"
         // works too, but this will not work:
         // "webpack:///${workspaceRoot}/*": "${webRoot}/*"
@@ -32,7 +32,7 @@
       "sourceMaps": true,
       "webRoot": "${workspaceRoot}",
       "sourceMapPathOverrides": {
-        "webpack:///C:*":"C:/*"
+        "webpack:///C:*": "C:/*"
       }
     }
   ]
