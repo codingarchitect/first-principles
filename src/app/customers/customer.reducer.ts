@@ -2,34 +2,33 @@ import { Action } from '@ngrx/store';
 
 import * as CustomerActions from './customer.actions';
 import { Customer } from './customer.model';
+import { CustomerState, customerInitialState } from './customer.state';
 
-export interface CustomerModuleState {
-  allCustomers: Customer[],
-  currentCustomer: Customer,
-  message: string;
-}
-
-export const customerModuleInitialState : CustomerModuleState = {
-  allCustomers: [],
-  currentCustomer: new Customer({}),
-  message: '',
-}
-
-export function customerReducer(state: CustomerModuleState = customerModuleInitialState, action: CustomerActions.Actions) : CustomerModuleState {
+export function customerReducer(state: CustomerState = customerInitialState, action: any) : CustomerState {
   switch(action.type) {
-    case CustomerActions.GET_ALL_CUSTOMERS_SUCCESS_ACTION: {
+    case CustomerActions.ActionTypes.SEARCH_COMPLETE: {
+      const customers = action.results;
+      const newCustomers = customers.filter(customer => !state.entities[customer.CustomerID]);
+
+      const newCustomerIds = newCustomers.map(customer => customer.CustomerID);
+      const newCustomerEntities = newCustomers.reduce((entities: { [id: string]: Customer }, customer: Customer) => {
+        return Object.assign(entities, {
+          [customer.CustomerID]: customer
+        });
+      }, {});
+
       return {
-        allCustomers: action.payload,
-        currentCustomer: new Customer({}),
-        message: '',
+        ids: [ ...state.ids, ...newCustomerIds ],
+        entities: Object.assign({}, state.entities, newCustomerEntities),
+        selectedCustomerId: state.selectedCustomerId
       };
     }
-    case CustomerActions.GET_ALL_CUSTOMERS_FAILED_ACTION: {
+    case CustomerActions.ActionTypes.SELECT: {
       return {
-        allCustomers: [],
-        currentCustomer: new Customer({}),
-        message: 'Unable to get customers: ' + action.payload
-      }
+        ids: state.ids,
+        entities: state.entities,
+        selectedCustomerId: action.customerId
+      };
     }
     default:
       return state;

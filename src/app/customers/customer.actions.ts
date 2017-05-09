@@ -1,24 +1,27 @@
 import { Action } from '@ngrx/store';
 
+import { type, createEnum } from '../store-enhancers';
 import { Customer } from './customer.model';
 
-export const GET_ALL_CUSTOMERS_ACTION : string = 'GET_ALL_CUSTOMERS';
-export const GET_ALL_CUSTOMERS_SUCCESS_ACTION : string = 'GET_ALL_CUSTOMERS_SUCCESS';
-export const GET_ALL_CUSTOMERS_FAILED_ACTION : string = 'GET_ALL_CUSTOMERS_FAILED';
-
-export class GetAllCustomersAction implements Action {
-  readonly type : string = GET_ALL_CUSTOMERS_ACTION;
-  constructor(public payload: any) {}
+export const ActionTypes = {
+  SEARCH:           type('[Customer] Search'),
+  SEARCH_COMPLETE:  type('[Customer] Search Complete'),
+  SELECT:           type('[Customer] Select'),
 }
 
-export class GetAllCustomersSuccessAction implements Action {
-  readonly type : string = GET_ALL_CUSTOMERS_SUCCESS_ACTION;
-  constructor(public payload: Customer[]) {}
+export class SearchAction implements Action {
+  readonly type : string = ActionTypes.SEARCH;
+  constructor(public searchTerm: string) {}
 }
 
-export class GetAllCustomersFailedAction implements Action {
-  readonly type : string = GET_ALL_CUSTOMERS_FAILED_ACTION;
-  constructor(public payload: any) {}
+export class SearchCompleteAction implements Action {
+  readonly type : string = ActionTypes.SEARCH_COMPLETE;
+  constructor(public results: Customer[]) {}
 }
 
-export type Actions = GetAllCustomersAction | GetAllCustomersSuccessAction | GetAllCustomersFailedAction;
+export class SelectAction implements Action {
+  readonly type : string = ActionTypes.SELECT;
+  constructor(public customerId: string) {}
+}
+
+export type Actions = SearchAction | SearchCompleteAction | SelectAction;

@@ -1,0 +1,6 @@
+<p-autoComplete 
+  [suggestions]="results" 
+  (completeMethod)="search($event)" 
+  field="ProductName"
+  (onSelect)="productSelected($event)">
+</p-autoComplete>

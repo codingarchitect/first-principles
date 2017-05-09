@@ -13,7 +13,6 @@ export const customers = [
     },
     "Phone": "030-0074321",
     "Fax": "030-0076545"
-
   },
   {
     "CustomerID": "ANATR",

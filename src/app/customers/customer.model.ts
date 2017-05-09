@@ -1,13 +1,10 @@
+import { Address } from '../shared'
 export class Customer {
   CustomerID: string;
   CompanyName: string;
   ContactName: string;
   ContactTitle: string;
-  Address: string;
-  City: string;
-  Region: string;
-  PostalCode: string;
-  Country: string;
+  Address: Address;
   Phone: string;
   Fax: string;
 
@@ -17,13 +14,11 @@ export class Customer {
       CompanyName?: string,
       ContactName?: string,
       ContactTitle?: string,
-      City?: string,
-      Region?: string,
-      PostalCode?: string,
-      Country?: string,
+      Address?: any,
       Phone?: string,
       Fax?: string,
     }) {
     if (fields) Object.assign(this, fields);
+    if (fields && fields.Address) fields.Address = new Address({...fields.Address});
   }
 }
